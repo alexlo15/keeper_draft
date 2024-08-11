@@ -114,13 +114,13 @@ function createButtonHtml(id) {
 
   if (settings && id === settings.player) {
     button.innerHTML = `
-    <img src="./assets/img/avatar.png" class="rounded-circle  shadow-4"
+    <img src="./keeper_draft/assets/img/avatar.png" class="rounded-circle  shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
   } else {
     button.innerHTML = `
-    <img src="./assets/img/red_avatar.png" class="rounded-circle shadow-4"
+    <img src="./keeper_draft/assets/img/red_avatar.png" class="rounded-circle shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
@@ -305,7 +305,7 @@ function toggleDivs() {
 }
 
 //
-fetch("../data/rankings.json")
+fetch("../keeper_draft/data/rankings.json")
   .then((response) => response.json())
   .then((data) => {
     // You can use the data here
