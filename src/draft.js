@@ -114,13 +114,13 @@ function createButtonHtml(id) {
 
   if (settings && id === settings.player) {
     button.innerHTML = `
-    <img src="./keeper_draft/assets/img/avatar.png" class="rounded-circle  shadow-4"
+    <img src="../assets/img/avatar.png" class="rounded-circle  shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
   } else {
     button.innerHTML = `
-    <img src="./keeper_draft/assets/img/red_avatar.png" class="rounded-circle shadow-4"
+    <img src="../assets/img/red_avatar.png" class="rounded-circle shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
