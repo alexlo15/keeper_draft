@@ -41,7 +41,7 @@ function add2Team(event, element, tR, teams, snakeDraftOrder, currentPool, origi
     }, 1550);
   } else {
     // else current team is a player, so we should not draft any player
-    const sound = new Audio('quick_melody_alert_sound.mp3');
+    const sound = new Audio('/assets/sounds/quick_melody_alert_sound.mp3');
     sound.play();
   }
 }
@@ -114,13 +114,13 @@ function createButtonHtml(id) {
 
   if (settings && id === settings.player) {
     button.innerHTML = `
-    <img src="/assets/img/avatar.png" class="rounded-circle  shadow-4"
+    <img src="/keeper_draft/assets/img/avatar.png" class="rounded-circle  shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
   } else {
     button.innerHTML = `
-    <img src="/assets/img/red_avatar.png" class="rounded-circle shadow-4"
+    <img src="/keeper_draft/assets/img/red_avatar.png" class="rounded-circle shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
@@ -387,7 +387,7 @@ fetch("../keeper_draft/data/rankings.json")
         }, 2250);
       } else {
         // else current team is a player, so we should not draft any player
-        const sound = new Audio('quick_melody_alert_sound.mp3');
+        const sound = new Audio('/assets/sounds/quick_melody_alert_sound.mp3');
         sound.play();
       }
     });
