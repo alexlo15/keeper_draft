@@ -114,13 +114,13 @@ function createButtonHtml(id) {
 
   if (settings && id === settings.player) {
     button.innerHTML = `
-    <img src="../assets/img/avatar.png" class="rounded-circle  shadow-4"
+    <img src="/assets/img/avatar.png" class="rounded-circle  shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
   } else {
     button.innerHTML = `
-    <img src="../assets/img/red_avatar.png" class="rounded-circle shadow-4"
+    <img src="/assets/img/red_avatar.png" class="rounded-circle shadow-4"
         style="width: 50px;" alt="Avatar" /><br>
   ${id}
 `;
@@ -347,25 +347,6 @@ fetch("../keeper_draft/data/rankings.json")
 
           getCurrentRoundAndPick(snakeDraftOrder, numberOfRounds, numberOfTeams);
         } else console.log("You can't draft next team up! fuck your ass!");
-      });
-      tR.addEventListener("click", (event) => {
-        const data = null;
-
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener('readystatechange', function () {
-          if (this.readyState === this.DONE) {
-            console.log(this.responseText);
-          }
-        });
-
-        xhr.open('GET', 'https://nfl-api-data.p.rapidapi.com/nfl-player-info/v1/data?id=4360644');
-        xhr.setRequestHeader('x-rapidapi-key', '1853b609femsh3518302f6b4692dp16a0b0jsn74f329fb1682');
-        xhr.setRequestHeader('x-rapidapi-host', 'nfl-api-data.p.rapidapi.com');
-
-        xhr.send(data);
-        console.log(xhr.responseText);
       });
 
       for (const key in element) {
