@@ -41,7 +41,7 @@ function add2Team(event, element, tR, teams, snakeDraftOrder, currentPool, origi
     }, 1550);
   } else {
     // else current team is a player, so we should not draft any player
-    const sound = new Audio('/assets/sounds/quick_melody_alert_sound.mp3');
+    const sound = new Audio('/keeper_draft/assets/sounds/quick_melody_alert_sound.mp3');
     sound.play();
   }
 }
@@ -387,7 +387,7 @@ fetch("../keeper_draft/data/rankings.json")
         }, 2250);
       } else {
         // else current team is a player, so we should not draft any player
-        const sound = new Audio('/assets/sounds/quick_melody_alert_sound.mp3');
+        const sound = new Audio('/keeper_draft/assets/sounds/quick_melody_alert_sound.mp3');
         sound.play();
       }
     });
