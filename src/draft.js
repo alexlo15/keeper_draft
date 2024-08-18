@@ -1,7 +1,15 @@
 let teams;
 
 //
-function add2Team(event, element, tR, teams, snakeDraftOrder, currentPool, originalCt) {
+function add2Team(
+  event,
+  element,
+  tR,
+  teams,
+  snakeDraftOrder,
+  currentPool,
+  originalCt
+) {
   tR.remove();
   let logTD = document.createElement("td"),
     logTR = document.createElement("tr");
@@ -14,11 +22,25 @@ function add2Team(event, element, tR, teams, snakeDraftOrder, currentPool, origi
   });
 
   currTeam.roster.push(element);
-  document.getElementById("team-" + currTeam.id).innerHTML += "<tr><td>" + element.rank + "</td><td>" + element.name + "</td></tr>";
+  document.getElementById("team-" + currTeam.id).innerHTML +=
+    "<tr><td>" + element.rank + "</td><td>" + element.name + "</td></tr>";
   if (snakeDraftOrder[0] === currTeam.id && currTeam.isPlayer) {
-    logTD.textContent = "You drafted " + element.name + " (" + element.posrank.substring(0, 2) + ") - overall pick #" + (originalCt - (currentPool.length - 1));
+    logTD.textContent =
+      "You drafted " +
+      element.name +
+      " (" +
+      element.posrank.substring(0, 2) +
+      ") - overall pick #" +
+      (originalCt - (currentPool.length - 1));
   } else {
-    logTD.textContent = currTeam.id + " drafted " + element.name + " (" + element.posrank.substring(0, 2) + ") - overall pick #" + (originalCt - (currentPool.length - 1));
+    logTD.textContent =
+      currTeam.id +
+      " drafted " +
+      element.name +
+      " (" +
+      element.posrank.substring(0, 2) +
+      ") - overall pick #" +
+      (originalCt - (currentPool.length - 1));
   }
 
   logTR.appendChild(logTD);
@@ -41,7 +63,7 @@ function add2Team(event, element, tR, teams, snakeDraftOrder, currentPool, origi
     }, 1550);
   } else {
     // else current team is a player, so we should not draft any player
-    const sound = new Audio('quick_melody_alert_sound.mp3');
+    const sound = new Audio("quick_melody_alert_sound.mp3");
     sound.play();
   }
 }
@@ -107,10 +129,12 @@ function createSnakeDraftOrderWithPlayer(numTeams, numRounds, prevSettings) {
   return [teams, draftOrder];
 }
 
-//
+//tea
 function createButtonHtml(id) {
   const button = document.createElement("div");
-  let settings = localStorage.getItem("settings") ? JSON.parse(localStorage.getItem("settings")) : false;
+  let settings = localStorage.getItem("settings")
+    ? JSON.parse(localStorage.getItem("settings"))
+    : false;
 
   if (settings && id === settings.player) {
     button.innerHTML = `
@@ -223,7 +247,8 @@ function getCurrentRoundAndPick(snakeDraftOrder, totalRounds, totalPlayers) {
   const currentRound = Math.floor(picksMade / totalPlayers) + 1;
   const currentPickInRound = Math.floor(picksMade % totalPlayers) + 1;
 
-  document.getElementById("draftPick").textContent = "Round " + currentRound + " - Pick " + currentPickInRound;
+  document.getElementById("draftPick").textContent =
+    "Round " + currentRound + " - Pick " + currentPickInRound;
 
   return { currentRound, currentPickInRound };
 }
@@ -262,10 +287,18 @@ function getBestPick(currentTeam, availablePlayers) {
   // Function to determine if a player can be picked
   function canPickPlayer(player) {
     const position = player.posrank.replace(/[0-9]/g, "");
-    if (position === "QB" || position === "WR" || position === "RB" || position === "TE") {
+    if (
+      position === "QB" ||
+      position === "WR" ||
+      position === "RB" ||
+      position === "TE"
+    ) {
       if (currentRoster[position] < rosterStructure[position]) {
         return true;
-      } else if (position !== "QB" && currentRoster.FLEX < rosterStructure.FLEX) {
+      } else if (
+        position !== "QB" &&
+        currentRoster.FLEX < rosterStructure.FLEX
+      ) {
         return true;
       }
     }
@@ -315,15 +348,22 @@ fetch("../data/rankings.json")
 
     let prevSettings = JSON.parse(localStorage.getItem("settings"));
 
-    (numberOfTeams = prevSettings.numteams ?? 14), (numberOfRounds = prevSettings.numrounds ?? 14), ([teams, snakeDraftOrder] = createSnakeDraftOrderWithPlayer(numberOfTeams, numberOfRounds, prevSettings ?? false));
-    // console.log(numberOfTeams, numberOfRounds, teams, snakeDraftOrder);
-
-    //   "draft",
-    //   JSON.stringify({
-    //     teams: teams,
-    //     rounds: snakeDraftOrder,
-    //   })
-    // );
+    if (prevSettings)
+      (numberOfTeams = prevSettings.numteams ?? 14),
+        (numberOfRounds = prevSettings.numrounds ?? 14),
+        ([teams, snakeDraftOrder] = createSnakeDraftOrderWithPlayer(
+          numberOfTeams,
+          numberOfRounds,
+          prevSettings ?? false
+        ));
+    else
+      (numberOfTeams = 14),
+        (numberOfRounds = 14),
+        ([teams, snakeDraftOrder] = createSnakeDraftOrderWithPlayer(
+          numberOfTeams,
+          numberOfRounds,
+          prevSettings ?? false
+        ));
 
     appendTeamCards(teams, "teamsDiv");
     appendButtonsToContainer(snakeDraftOrder);
@@ -339,13 +379,26 @@ fetch("../data/rankings.json")
       let tR = document.createElement("TR");
       tR.id = "row" + element.name;
       tR.addEventListener("dblclick", (event) => {
-
         // if next team up IS not the users team OR the event page XY are not 0,0
-        if (snakeDraftOrder[0] === userTeamID || (event.pageX === 0 && event.pageY === 0)) {
+        if (
+          snakeDraftOrder[0] === userTeamID ||
+          (event.pageX === 0 && event.pageY === 0)
+        ) {
+          add2Team(
+            event,
+            element,
+            tR,
+            teams,
+            snakeDraftOrder,
+            currentPool,
+            originalCt
+          );
 
-          add2Team(event, element, tR, teams, snakeDraftOrder, currentPool, originalCt);
-
-          getCurrentRoundAndPick(snakeDraftOrder, numberOfRounds, numberOfTeams);
+          getCurrentRoundAndPick(
+            snakeDraftOrder,
+            numberOfRounds,
+            numberOfTeams
+          );
         } else console.log("You can't draft next team up! fuck your ass!");
       });
       tR.addEventListener("click", (event) => {
@@ -354,15 +407,21 @@ fetch("../data/rankings.json")
         const xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
-        xhr.addEventListener('readystatechange', function () {
+        xhr.addEventListener("readystatechange", function () {
           if (this.readyState === this.DONE) {
             console.log(this.responseText);
           }
         });
 
-        xhr.open('GET', 'https://nfl-api-data.p.rapidapi.com/nfl-player-info/v1/data?id=4360644');
-        xhr.setRequestHeader('x-rapidapi-key', '1853b609femsh3518302f6b4692dp16a0b0jsn74f329fb1682');
-        xhr.setRequestHeader('x-rapidapi-host', 'nfl-api-data.p.rapidapi.com');
+        xhr.open(
+          "GET",
+          "https://nfl-api-data.p.rapidapi.com/nfl-player-info/v1/data?id=4360644"
+        );
+        xhr.setRequestHeader(
+          "x-rapidapi-key",
+          "1853b609femsh3518302f6b4692dp16a0b0jsn74f329fb1682"
+        );
+        xhr.setRequestHeader("x-rapidapi-host", "nfl-api-data.p.rapidapi.com");
 
         xhr.send(data);
         console.log(xhr.responseText);
@@ -382,7 +441,9 @@ fetch("../data/rankings.json")
 
     // start draft
     document.getElementById("startBtn").addEventListener("click", function () {
-      document.querySelectorAll(".toggleStart").forEach((el) => el.classList.toggle("d-none"));
+      document
+        .querySelectorAll(".toggleStart")
+        .forEach((el) => el.classList.toggle("d-none"));
 
       // identify current team
       let currTeam;
@@ -406,10 +467,9 @@ fetch("../data/rankings.json")
         }, 2250);
       } else {
         // else current team is a player, so we should not draft any player
-        const sound = new Audio('quick_melody_alert_sound.mp3');
+        const sound = new Audio("quick_melody_alert_sound.mp3");
         sound.play();
       }
     });
-
   })
   .catch((error) => console.error("Error fetching JSON:", error));
